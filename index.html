@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamada Center | حمادة سنتر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7F4;
+    --rose:#E8B4BC;
+    --rose-deep:#D98A9B;
+    --emerald:#1F4538;
+    --emerald-light:#2F6651;
+    --ink:#2A2420;
+    --gold:#C9A961;
+    --line:#EAE0D8;
+    --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Tajawal',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+
+  header{
+    background:var(--emerald);
+    color:#fff;
+    padding:18px 5%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+  }
+  .logo{
+    font-family:'Amiri',serif;
+    font-size:1.6rem;
+    font-weight:700;
+    letter-spacing:.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo span{color:var(--gold);}
+
+  .hero{
+    text-align:center;
+    padding:64px 5% 48px;
+    background:linear-gradient(135deg, var(--rose) 0%, var(--cream) 70%);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;
+    top:-80px;right:-80px;
+    width:240px;height:240px;
+    border-radius:50%;
+    background:rgba(255,255,255,.25);
+  }
+  .hero h1{
+    font-family:'Amiri',serif;
+    font-size:clamp(2rem,5vw,3.2rem);
+    color:var(--emerald);
+    margin-bottom:12px;
+    font-weight:700;
+  }
+  .hero p{
+    font-size:1.1rem;
+    color:var(--ink);
+    max-width:560px;
+    margin:0 auto 24px;
+    opacity:.8;
+  }
+  .hero-badges{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .hero-badge{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:8px 18px;
+    font-size:.85rem;
+    font-weight:700;
+    color:var(--emerald);
+  }
+
+  .filters{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    padding:28px 5% 8px;
+  }
+  .filter-btn{
+    border:1px solid var(--emerald);
+    background:transparent;
+    color:var(--emerald);
+    padding:9px 22px;
+    border-radius:999px;
+    font-family:inherit;
+    font-weight:700;
+    font-size:.9rem;
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .filter-btn.active, .filter-btn:hover{
+    background:var(--emerald);
+    color:#fff;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:24px;
+    padding:28px 5% 64px;
+    max-width:1280px;
+    margin:0 auto;
+    min-height:200px;
+  }
+  .card{
+    background:var(--card);
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    transition:transform .25s, box-shadow .25s;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 14px 30px rgba(31,69,56,.12);
+  }
+  .card-img{
+    aspect-ratio:1/1;
+    overflow:hidden;
+    background:#f4ede7;
+    position:relative;
+  }
+  .card-img img{
+    width:100%;height:100%;
+    object-fit:cover;
+  }
+  .discount-sticker{
+    position:absolute;
+    top:14px; left:14px;
+    background:var(--gold);
+    color:var(--emerald);
+    font-weight:900;
+    font-size:.85rem;
+    padding:6px 14px;
+    border-radius:999px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+    transform:rotate(-6deg);
+  }
+  .card-body{
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .card-cat{
+    font-size:.75rem;
+    color:var(--rose-deep);
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+  .card-title{
+    font-size:1.08rem;
+    font-weight:800;
+    color:var(--ink);
+    margin-bottom:2px;
+  }
+  .card-desc{
+    font-size:.85rem;
+    color:#6b6258;
+    flex:1;
+  }
+  .price-row{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-top:6px;
+  }
+  .price-new{
+    font-size:1.4rem;
+    font-weight:900;
+    color:var(--emerald);
+    font-family:'Amiri',serif;
+  }
+  .price-old{
+    font-size:.95rem;
+    color:#a8a098;
+    text-decoration:line-through;
+  }
+  .variant-select{
+    margin-top:4px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:8px 10px;
+    font-family:inherit;
+    font-size:.9rem;
+    background:var(--cream);
+    color:var(--ink);
+  }
+  .order-btn{
+    margin-top:10px;
+    background:var(--emerald);
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:12px;
+    font-family:inherit;
+    font-weight:800;
+    font-size:.95rem;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:background .2s;
+    text-decoration:none;
+  }
+  .order-btn:hover{background:var(--emerald-light);}
+  .order-btn svg{width:18px;height:18px;}
+
+  .empty{
+    text-align:center;
+    padding:60px 20px;
+    color:#a8a098;
+    grid-column:1/-1;
+  }
+  .empty h3{color:var(--emerald);margin-bottom:8px;font-family:'Amiri',serif;font-size:1.4rem;}
+
+  footer{
+    background:var(--emerald);
+    color:#fff;
+    text-align:center;
+    padding:36px 5%;
+    margin-top:20px;
+  }
+  footer .wa{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--gold);
+    color:var(--emerald);
+    padding:12px 28px;
+    border-radius:999px;
+    font-weight:800;
+    text-decoration:none;
+    margin-top:14px;
+    font-size:1rem;
+  }
+  footer p{opacity:.75;margin-top:18px;font-size:.85rem;}
+
+  .conn-error{
+    text-align:center;
+    padding:16px;
+    background:#fdf0e8;
+    color:#8a4a2a;
+    font-size:.85rem;
+    display:none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Hamada <span>Center</span> ✨</div>
+</header>
+
+<div class="conn-error" id="connError">تعذر تحميل المنتجات حالياً. حاولي تحديث الصفحة بعد قليل.</div>
+
+<section class="hero">
+  <h1>أفضل منتجات العناية والعطور بأسعار حصرية 💚</h1>
+  <p>عطور، مكياج، وعناية بالبشرة والشعر — بأسعار خاصة لعملاء حمادة سنتر في طنطا وكل المحافظات</p>
+  <div class="hero-badges">
+    <div class="hero-badge">🚚 توصيل لكل المحافظات</div>
+    <div class="hero-badge">🔥 عروض وخصومات حصرية</div>
+    <div class="hero-badge">📍 طنطا</div>
+  </div>
+</section>
+
+<div class="filters" id="filters"></div>
+
+<main class="grid" id="products">
+  <div class="empty"><h3>جاري تحميل المنتجات...</h3></div>
+</main>
+
+<footer id="contact">
+  <h2 style="font-family:'Amiri',serif;font-size:1.6rem;">للطلب والاستفسار</h2>
+  <p style="margin-top:8px;opacity:.85;">تواصلي معنا مباشرة على واتساب وسيتم الرد عليكِ في أقرب وقت</p>
+  <a class="wa" href="https://wa.me/201095951764" target="_blank">
+    📲 تواصل عبر واتساب
+  </a>
+  <p>Hamada Center © 2026 — جميع الحقوق محفوظة</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+/* ---------- GUARD: make sure config.js loaded correctly ---------- */
+if(typeof SUPABASE_URL === 'undefined' || typeof SUPABASE_ANON_KEY === 'undefined'){
+  document.getElementById('products').innerHTML =
+    '<div class="empty"><h3>خطأ في الإعداد</h3><p>تأكدي من رفع ملف config.js مع باقي الملفات</p></div>';
+  throw new Error('Missing config.js values');
+}
+
+/* ---------- SUPABASE SETUP ---------- */
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let products = [];
+let activeCategory = 'الكل';
+
+/* ---------- LOAD PRODUCTS ---------- */
+async function loadProducts(){
+  try{
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if(error){
+      console.error('Supabase error:', error);
+      document.getElementById('connError').style.display = 'block';
+      document.getElementById('products').innerHTML =
+        '<div class="empty"><h3>لا توجد منتجات بعد</h3><p>تابعونا قريباً</p></div>';
+      return;
+    }
+
+    document.getElementById('connError').style.display = 'none';
+
+    products = (data || []).map(p => ({
+      id: p.id,
+      name: p.name,
+      category: p.category,
+      desc: p.description || '',
+      img: p.image || '',
+      variants: Array.isArray(p.variants) ? p.variants : []
+    })).filter(p => p.variants.length > 0);
+
+    renderFilters();
+    renderProducts();
+  }catch(err){
+    console.error('Network/config error:', err);
+    document.getElementById('connError').style.display = 'block';
+  }
+}
+
+/* ---------- RENDER STORE ---------- */
+function renderFilters(){
+  const cats = ['الكل', ...new Set(products.map(p=>p.category))];
+  const el = document.getElementById('filters');
+  el.innerHTML = cats.map(c =>
+    `<button class="filter-btn ${c===activeCategory?'active':''}" onclick="setCategory('${c.replace(/'/g,"\\'")}')">${c}</button>`
+  ).join('');
+}
+
+function setCategory(cat){
+  activeCategory = cat;
+  renderFilters();
+  renderProducts();
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function renderProducts(){
+  const grid = document.getElementById('products');
+  const list = activeCategory==='الكل' ? products : products.filter(p=>p.category===activeCategory);
+
+  if(list.length===0){
+    grid.innerHTML = `<div class="empty"><h3>لا توجد منتجات هنا حاليًا</h3><p>تابعوا صفحاتنا لمعرفة أحدث العروض</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(p=>{
+    const v0 = p.variants[0];
+    const discount = v0.oldPrice ? Math.round(100 - (v0.price/v0.oldPrice*100)) : 0;
+    const variantOptions = p.variants.map((v,i)=>
+      `<option value="${i}">${escapeHtml(v.label)} — ${v.price}ج${v.oldPrice?` (بدل ${v.oldPrice}ج)`:''}</option>`
+    ).join('');
+    const imgSrc = p.img || PLACEHOLDER_IMG;
+
+    return `
+    <div class="card">
+      <div class="card-img">
+        ${discount>0?`<div class="discount-sticker">خصم ${discount}%</div>`:''}
+        <img src="${imgSrc}" alt="${escapeHtml(p.name)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
+      </div>
+      <div class="card-body">
+        <span class="card-cat">${escapeHtml(p.category)}</span>
+        <h3 class="card-title">${escapeHtml(p.name)}</h3>
+        <p class="card-desc">${escapeHtml(p.desc)}</p>
+        ${p.variants.length>1?`
+          <select class="variant-select" onchange="updatePrice('${p.id}', this)">
+            ${variantOptions}
+          </select>
+        `:''}
+        <div class="price-row" id="price-${p.id}">
+          <span class="price-new">${v0.price} ج.م</span>
+          ${v0.oldPrice?`<span class="price-old">${v0.oldPrice} ج.م</span>`:''}
+        </div>
+        <a class="order-btn" href="${buildWaLink(p, 0)}" target="_blank" id="order-${p.id}">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.5 4 3.78 7.72 3.78 12.27c0 1.61.46 3.11 1.27 4.42L4 20l3.43-1.07a8.85 8.85 0 0 0 4.62 1.26h.01c4.55 0 8.27-3.72 8.27-8.27a8.7 8.7 0 0 0-2.73-6.6zM12.06 18.6h-.01a7.3 7.3 0 0 1-3.74-1.03l-.27-.16-2.78.87.88-2.7-.18-.28a7.32 7.32 0 0 1-1.13-3.93c0-4.04 3.3-7.34 7.36-7.34a7.3 7.3 0 0 1 5.2 2.16 7.27 7.27 0 0 1 2.15 5.18c0 4.05-3.3 7.34-7.36 7.34zm4.02-5.5c-.22-.11-1.3-.64-1.5-.71-.2-.08-.35-.11-.5.1-.14.22-.56.71-.69.85-.13.15-.25.16-.47.06-1.27-.64-2.1-1.13-2.95-2.57-.22-.39.22-.36.63-1.2.07-.15.04-.27-.03-.39-.07-.11-.6-1.45-.83-1.98-.22-.52-.44-.45-.6-.46-.16-.01-.34-.01-.52-.01-.18 0-.46.07-.7.34-.24.27-.92.9-.92 2.2 0 1.3.95 2.55 1.08 2.73.13.18 1.83 2.8 4.45 3.81 2.13.8 2.13.53 2.51.5.39-.04 1.3-.53 1.48-1.04.18-.51.18-.94.13-1.04-.05-.1-.21-.16-.43-.27z"/></svg>
+          للطلب عبر واتساب
+        </a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildWaLink(product, variantIndex){
+  const v = product.variants[variantIndex];
+  const msg = encodeURIComponent(`أهلاً، أريد الاستفسار عن: ${product.name} (${v.label}) - السعر ${v.price}ج`);
+  return `https://wa.me/201095951764?text=${msg}`;
+}
+
+function updatePrice(productId, selectEl){
+  const product = products.find(p=>p.id===productId);
+  const idx = parseInt(selectEl.value);
+  const v = product.variants[idx];
+  const priceRow = document.getElementById(`price-${productId}`);
+  priceRow.innerHTML = `<span class="price-new">${v.price} ج.م</span>${v.oldPrice?`<span class="price-old">${v.oldPrice} ج.م</span>`:''}`;
+  document.getElementById(`order-${productId}`).href = buildWaLink(product, idx);
+}
+
+/* ---------- PLACEHOLDER IMAGE ---------- */
+const PLACEHOLDER_IMG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600"%3E%3Crect width="600" height="600" fill="%23F4EDE7"/%3E%3Ctext x="300" y="300" font-size="28" fill="%23C9A961" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif"%3Eلا توجد صورة%3C/text%3E%3C/svg%3E';
+
+/* ---------- INIT ---------- */
+loadProducts();
+
+/* Live updates: refresh automatically when products change in the database */
+try{
+  supabase
+    .channel('products-changes')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => {
+      loadProducts();
+    })
+    .subscribe();
+}catch(e){
+  console.warn('Realtime subscription failed (site still works, just won\'t auto-refresh):', e);
+}
+</script>
+
+</body>
+</html>
