@@ -41,113 +41,47 @@
     box-shadow:0 14px 40px rgba(31,69,56,.12);
     text-align:center;
   }
-  .login-box h1{
-    font-size:1.3rem;
-    color:var(--emerald);
-    margin-bottom:6px;
-  }
-  .login-box p{
-    font-size:.85rem;
-    color:#a8a098;
-    margin-bottom:20px;
-  }
+  .login-box h1{font-size:1.3rem;color:var(--emerald);margin-bottom:6px;}
+  .login-box p{font-size:.85rem;color:#a8a098;margin-bottom:20px;}
   .login-box input{
-    width:100%;
-    padding:14px;
-    border:1px solid var(--line);
-    border-radius:12px;
-    font-family:inherit;
-    font-size:1rem;
-    text-align:center;
-    margin-bottom:14px;
-    background:var(--cream);
+    width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;
+    font-family:inherit;font-size:1rem;text-align:center;margin-bottom:14px;background:var(--cream);
   }
   .login-box button{
-    width:100%;
-    padding:14px;
-    background:var(--emerald);
-    color:#fff;
-    border:none;
-    border-radius:12px;
-    font-family:inherit;
-    font-weight:800;
-    font-size:1rem;
-    cursor:pointer;
+    width:100%;padding:14px;background:var(--emerald);color:#fff;border:none;
+    border-radius:12px;font-family:inherit;font-weight:800;font-size:1rem;cursor:pointer;
   }
   .login-box button:hover{background:var(--emerald-light);}
-  .login-error{
-    color:var(--danger);
-    font-size:.85rem;
-    margin-top:10px;
-    display:none;
-  }
+  .login-error{color:var(--danger);font-size:.85rem;margin-top:10px;display:none;}
   .config-error{
-    color:var(--danger);
-    font-size:.8rem;
-    margin-top:14px;
-    padding:10px;
-    background:var(--danger-bg);
-    border-radius:8px;
-    display:none;
+    color:var(--danger);font-size:.8rem;margin-top:14px;padding:10px;
+    background:var(--danger-bg);border-radius:8px;display:none;
   }
-
   .admin-app{display:none;}
   .admin-header{
-    background:var(--emerald);
-    color:#fff;
-    padding:18px 5%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    background:var(--emerald);color:#fff;padding:18px 5%;
+    display:flex;justify-content:space-between;align-items:center;
   }
   .admin-header h1{font-size:1.2rem;}
   .logout-btn{
-    background:rgba(255,255,255,.15);
-    color:#fff;
-    border:none;
-    padding:8px 16px;
-    border-radius:8px;
-    font-family:inherit;
-    font-weight:700;
-    cursor:pointer;
-    font-size:.85rem;
+    background:rgba(255,255,255,.15);color:#fff;border:none;padding:8px 16px;
+    border-radius:8px;font-family:inherit;font-weight:700;cursor:pointer;font-size:.85rem;
   }
-  .admin-body{
-    max-width:680px;
-    margin:0 auto;
-    padding:28px 20px 60px;
-  }
+  .admin-body{max-width:680px;margin:0 auto;padding:28px 20px 60px;}
   .tabs{display:flex;gap:8px;margin-bottom:22px;}
   .tab{
     flex:1;padding:12px;text-align:center;border-radius:10px;
-    background:#fff;cursor:pointer;font-weight:700;font-size:.9rem;
-    border:1px solid var(--line);
+    background:#fff;cursor:pointer;font-weight:700;font-size:.9rem;border:1px solid var(--line);
   }
   .tab.active{background:var(--emerald);color:#fff;border-color:var(--emerald);}
   .section{display:none;}
   .section.active{display:block;}
-
-  .form-card{
-    background:#fff;
-    border-radius:16px;
-    padding:22px;
-    border:1px solid var(--line);
-  }
-  label{
-    display:block;
-    font-weight:700;
-    font-size:.85rem;
-    margin:14px 0 6px;
-  }
+  .form-card{background:#fff;border-radius:16px;padding:22px;border:1px solid var(--line);}
+  label{display:block;font-weight:700;font-size:.85rem;margin:14px 0 6px;}
   label:first-child{margin-top:0;}
   input[type=text], input[type=number], select, textarea{
-    width:100%;
-    padding:11px 13px;
-    border:1px solid var(--line);
-    border-radius:10px;
-    font-family:inherit;
-    font-size:.92rem;
-    background:var(--cream);
+    width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;
+    font-family:inherit;font-size:.92rem;background:var(--cream);
   }
   textarea{min-height:75px;resize:vertical;}
   input[type=file]{width:100%;}
@@ -168,7 +102,33 @@
     width:100%;margin-top:8px;background:transparent;color:#a8a098;
     border:none;padding:8px;font-family:inherit;font-weight:700;cursor:pointer;font-size:.85rem;
   }
-  #img-preview{display:none;max-height:140px;border-radius:10px;margin-top:8px;}
+
+  /* ===== MULTI-IMAGE STYLES ===== */
+  .images-grid{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;
+  }
+  .img-thumb-wrap{
+    position:relative;width:90px;height:90px;border-radius:10px;overflow:hidden;
+    border:2px solid var(--line);background:#f4ede7;flex-shrink:0;
+  }
+  .img-thumb-wrap img{width:100%;height:100%;object-fit:cover;}
+  .img-thumb-wrap .remove-img{
+    position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;
+    background:var(--danger);color:#fff;border:none;cursor:pointer;
+    font-size:14px;line-height:22px;text-align:center;font-weight:700;
+  }
+  .img-thumb-wrap .main-badge{
+    position:absolute;bottom:3px;right:3px;background:var(--emerald);color:#fff;
+    font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:5px;
+  }
+  .add-more-img-btn{
+    width:90px;height:90px;border-radius:10px;border:2px dashed var(--line);
+    background:var(--cream);cursor:pointer;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:4px;font-size:.75rem;
+    color:#a8a098;font-family:inherit;font-weight:700;flex-shrink:0;
+  }
+  .add-more-img-btn span{font-size:1.4rem;}
+  /* ============================= */
 
   .product-item{
     display:flex;align-items:center;gap:12px;padding:12px;
@@ -187,8 +147,7 @@
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
     background:var(--emerald);color:#fff;padding:14px 26px;border-radius:999px;
     font-weight:700;font-size:.9rem;box-shadow:0 8px 24px rgba(0,0,0,.2);
-    z-index:500;display:none;
-    max-width:90%;text-align:center;
+    z-index:500;display:none;max-width:90%;text-align:center;
   }
   .toast.error{background:var(--danger);}
   .live-badge{
@@ -246,11 +205,18 @@
         <label>الوصف المختصر</label>
         <textarea id="f-desc" placeholder="وصف قصير يظهر تحت اسم المنتج"></textarea>
 
-        <label>صورة المنتج</label>
-        <input type="file" id="f-img-upload" accept="image/*" onchange="handleImageUpload(event)">
-        <div class="hint">اختاري صورة من جهازك (سيتم ضغطها تلقائياً)</div>
-        <input type="hidden" id="f-img">
-        <img id="img-preview">
+        <label>صور المنتج</label>
+        <div class="hint" style="margin-bottom:8px;">يمكنك إضافة أكثر من صورة — الصورة الأولى هي الرئيسية</div>
+
+        <!-- hidden file input -->
+        <input type="file" id="f-img-upload" accept="image/*" multiple style="display:none" onchange="handleImagesUpload(event)">
+
+        <!-- thumbnails grid -->
+        <div class="images-grid" id="images-grid">
+          <button type="button" class="add-more-img-btn" onclick="document.getElementById('f-img-upload').click()">
+            <span>+</span>إضافة صورة
+          </button>
+        </div>
 
         <label>الأسعار / الأحجام</label>
         <div id="variants-container"></div>
@@ -272,17 +238,16 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
-/* ---------- GUARD: make sure config.js loaded correctly ---------- */
+/* ---------- CONFIG GUARD ---------- */
 (function checkConfig(){
   const missing = [];
   if(typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL || SUPABASE_URL.includes('ضعي_هنا')) missing.push('SUPABASE_URL');
   if(typeof SUPABASE_ANON_KEY === 'undefined' || !SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.includes('ضعي_هنا')) missing.push('SUPABASE_ANON_KEY');
   if(typeof ADMIN_PASSWORD === 'undefined' || !ADMIN_PASSWORD) missing.push('ADMIN_PASSWORD');
-
   if(missing.length > 0){
     const el = document.getElementById('configError');
     el.style.display = 'block';
-    el.textContent = 'ملف config.js غير مكتمل أو غير مرفوع بشكل صحيح. تأكدي من رفعه مع باقي الملفات.';
+    el.textContent = 'ملف config.js غير مكتمل. تأكد من رفعه مع باقي الملفات.';
     document.querySelector('.login-box button').disabled = true;
     document.querySelector('.login-box button').style.opacity = '0.5';
   }
@@ -292,41 +257,38 @@
 function tryLogin(){
   const input = document.getElementById('passwordInput').value;
   if(typeof ADMIN_PASSWORD !== 'undefined' && input === ADMIN_PASSWORD){
-    sessionStorage.setItem('hc_admin_auth', 'true');
+    sessionStorage.setItem('hc_admin_auth','true');
     showAdmin();
   }else{
     document.getElementById('loginError').style.display = 'block';
   }
 }
-
 function logout(){
   sessionStorage.removeItem('hc_admin_auth');
   document.getElementById('adminApp').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('passwordInput').value = '';
 }
-
 function showAdmin(){
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminApp').style.display = 'block';
   init();
 }
-
-if(sessionStorage.getItem('hc_admin_auth') === 'true' && typeof SUPABASE_URL !== 'undefined'){
+if(sessionStorage.getItem('hc_admin_auth')==='true' && typeof SUPABASE_URL !== 'undefined'){
   showAdmin();
 }
 
 /* ---------- SUPABASE ---------- */
 let sb;
-try{
-  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-}catch(e){
-  console.error('Failed to create Supabase client:', e);
-}
+try{ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
+catch(e){ console.error('Supabase init failed:', e); }
 
 let products = [];
 let editingId = null;
 let variantCount = 0;
+
+// Array of base64 images
+let uploadedImages = [];
 
 async function init(){
   await loadProducts();
@@ -335,11 +297,8 @@ async function init(){
 
 async function loadProducts(){
   try{
-    const { data, error } = await sb
-      .from('products')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if(error){ showToast('خطأ في تحميل المنتجات: ' + error.message, true); return; }
+    const { data, error } = await sb.from('products').select('*').order('created_at',{ascending:false});
+    if(error){ showToast('خطأ في تحميل المنتجات: '+error.message, true); return; }
     products = data || [];
     renderProductList();
   }catch(err){
@@ -355,6 +314,63 @@ function switchTab(tab){
   if(tab==='manage') renderProductList();
 }
 
+/* ---------- MULTI-IMAGE LOGIC ---------- */
+function handleImagesUpload(event){
+  const files = Array.from(event.target.files);
+  if(!files.length) return;
+  // reset the input so same file can be picked again
+  event.target.value = '';
+  files.forEach(file => {
+    if(!file.type.startsWith('image/')){ showToast('اختر ملف صورة فقط', true); return; }
+    const reader = new FileReader();
+    reader.onload = function(e){
+      const img = new Image();
+      img.onload = function(){
+        const canvas = document.createElement('canvas');
+        const maxDim = 800;
+        let w = img.width, h = img.height;
+        if(w > h && w > maxDim){ h = h * maxDim / w; w = maxDim; }
+        else if(h > maxDim){ w = w * maxDim / h; h = maxDim; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const compressed = canvas.toDataURL('image/jpeg', 0.8);
+        uploadedImages.push(compressed);
+        renderImagesGrid();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function removeImage(index){
+  uploadedImages.splice(index, 1);
+  renderImagesGrid();
+}
+
+function renderImagesGrid(){
+  const grid = document.getElementById('images-grid');
+  grid.innerHTML = '';
+  uploadedImages.forEach((src, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'img-thumb-wrap';
+    wrap.innerHTML = `
+      <img src="${src}" alt="">
+      <button type="button" class="remove-img" onclick="removeImage(${i})">✕</button>
+      ${i === 0 ? '<span class="main-badge">رئيسية</span>' : ''}
+    `;
+    grid.appendChild(wrap);
+  });
+  // add button always at end
+  const addBtn = document.createElement('button');
+  addBtn.type = 'button';
+  addBtn.className = 'add-more-img-btn';
+  addBtn.onclick = () => document.getElementById('f-img-upload').click();
+  addBtn.innerHTML = '<span>+</span>إضافة صورة';
+  grid.appendChild(addBtn);
+}
+
+/* ---------- VARIANTS ---------- */
 function addVariantRow(label='', price='', oldPrice=''){
   variantCount++;
   const container = document.getElementById('variants-container');
@@ -370,44 +386,15 @@ function addVariantRow(label='', price='', oldPrice=''){
   container.appendChild(row);
 }
 
-function handleImageUpload(event){
-  const file = event.target.files[0];
-  if(!file) return;
-  if(!file.type.startsWith('image/')){
-    showToast('من فضلك اختاري ملف صورة', true);
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = function(e){
-    const img = new Image();
-    img.onload = function(){
-      const canvas = document.createElement('canvas');
-      const maxDim = 800;
-      let w = img.width, h = img.height;
-      if(w > h && w > maxDim){ h = h * maxDim / w; w = maxDim; }
-      else if(h > maxDim){ w = w * maxDim / h; h = maxDim; }
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      const compressed = canvas.toDataURL('image/jpeg', 0.8);
-      document.getElementById('f-img').value = compressed;
-      const preview = document.getElementById('img-preview');
-      preview.src = compressed;
-      preview.style.display = 'block';
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-}
-
+/* ---------- CLEAR FORM ---------- */
 function clearForm(){
   editingId = null;
+  uploadedImages = [];
   document.getElementById('f-name').value = '';
   document.getElementById('f-desc').value = '';
-  document.getElementById('f-img').value = '';
   document.getElementById('f-cat').value = 'عطور';
   document.getElementById('f-img-upload').value = '';
-  document.getElementById('img-preview').style.display = 'none';
-  document.getElementById('img-preview').src = '';
+  renderImagesGrid();
   document.getElementById('variants-container').innerHTML = '';
   variantCount = 0;
   addVariantRow();
@@ -415,13 +402,13 @@ function clearForm(){
   document.getElementById('cancelEditBtn').style.display = 'none';
 }
 
+/* ---------- SAVE ---------- */
 async function saveProduct(){
   const name = document.getElementById('f-name').value.trim();
   const category = document.getElementById('f-cat').value;
   const desc = document.getElementById('f-desc').value.trim();
-  const img = document.getElementById('f-img').value.trim();
 
-  if(!name){ showToast('من فضلك اكتبي اسم المنتج', true); return; }
+  if(!name){ showToast('من فضلك اكتب اسم المنتج', true); return; }
 
   const variantRows = document.querySelectorAll('#variants-container .variant-row');
   const variants = [];
@@ -429,17 +416,26 @@ async function saveProduct(){
     const label = row.querySelector('.v-label').value.trim();
     const price = parseFloat(row.querySelector('.v-price').value);
     const oldPrice = parseFloat(row.querySelector('.v-old').value) || null;
-    if(label && !isNaN(price)){
-      variants.push({label, price, oldPrice});
-    }
+    if(label && !isNaN(price)) variants.push({label, price, oldPrice});
   });
-  if(variants.length===0){ showToast('أضيفي سعر وحجم واحد على الأقل', true); return; }
+  if(variants.length===0){ showToast('أضف سعر وحجم واحد على الأقل', true); return; }
 
   const saveBtn = document.getElementById('saveBtn');
   saveBtn.disabled = true;
   saveBtn.textContent = 'جاري الحفظ...';
 
-  const payload = { name, category, description: desc, image: img || null, variants };
+  // images: array stored in DB. First image = main image for backward compat
+  const imagesArray = uploadedImages.length > 0 ? uploadedImages : [];
+  const mainImage = imagesArray[0] || null;
+
+  const payload = {
+    name,
+    category,
+    description: desc,
+    image: mainImage,          // keep old "image" field = first photo
+    images: imagesArray,       // new field: all photos
+    variants
+  };
 
   let error;
   try{
@@ -448,15 +444,13 @@ async function saveProduct(){
     }else{
       ({ error } = await sb.from('products').insert(payload));
     }
-  }catch(err){
-    error = err;
-  }
+  }catch(err){ error = err; }
 
   saveBtn.disabled = false;
   saveBtn.textContent = editingId ? 'حفظ التعديلات' : 'حفظ المنتج';
 
   if(error){
-    showToast('حدث خطأ: ' + (error.message || 'تأكدي من الاتصال بالإنترنت'), true);
+    showToast('حدث خطأ: '+(error.message||'تأكد من الاتصال بالإنترنت'), true);
     return;
   }
 
@@ -466,6 +460,7 @@ async function saveProduct(){
   switchTab('manage');
 }
 
+/* ---------- RENDER LIST ---------- */
 function renderProductList(){
   const el = document.getElementById('product-list');
   if(products.length===0){
@@ -473,20 +468,21 @@ function renderProductList(){
     return;
   }
   el.innerHTML = products.map(p=>{
-    const variantsText = (p.variants || []).map(v=>v.price+'ج').join(' / ');
+    const variantsText = (p.variants||[]).map(v=>v.price+'ج').join(' / ');
+    const imgCount = (p.images||[]).length;
+    const imgBadge = imgCount > 1 ? `<span style="font-size:.72rem;color:#a8a098;"> · ${imgCount} صور</span>` : '';
     return `
     <div class="product-item">
-      <img src="${p.image || ''}" alt="" onerror="this.style.visibility='hidden'">
+      <img src="${p.image||''}" alt="" onerror="this.style.visibility='hidden'">
       <div class="info">
         <b>${escapeHtml(p.name)}</b>
-        ${escapeHtml(p.category)} — ${variantsText}
+        ${escapeHtml(p.category)} — ${variantsText}${imgBadge}
       </div>
       <div class="actions">
         <button class="small-btn" onclick="editProduct('${p.id}')">تعديل</button>
         <button class="danger-btn" onclick="deleteProduct('${p.id}')">حذف</button>
       </div>
-    </div>
-  `;
+    </div>`;
   }).join('');
 }
 
@@ -496,6 +492,7 @@ function escapeHtml(str){
   return div.innerHTML;
 }
 
+/* ---------- EDIT ---------- */
 function editProduct(id){
   const p = products.find(x=>x.id===id);
   if(!p) return;
@@ -503,27 +500,29 @@ function editProduct(id){
   document.getElementById('f-name').value = p.name;
   document.getElementById('f-cat').value = p.category;
   document.getElementById('f-desc').value = p.description || '';
-  document.getElementById('f-img').value = p.image || '';
-  if(p.image){
-    document.getElementById('img-preview').src = p.image;
-    document.getElementById('img-preview').style.display = 'block';
-  }else{
-    document.getElementById('img-preview').style.display = 'none';
-  }
+
+  // load existing images
+  uploadedImages = Array.isArray(p.images) && p.images.length > 0
+    ? [...p.images]
+    : (p.image ? [p.image] : []);
+  renderImagesGrid();
+
   document.getElementById('variants-container').innerHTML = '';
   variantCount = 0;
-  (p.variants || []).forEach(v=>addVariantRow(v.label, v.price, v.oldPrice||''));
-  if((p.variants||[]).length === 0) addVariantRow();
+  (p.variants||[]).forEach(v=>addVariantRow(v.label, v.price, v.oldPrice||''));
+  if((p.variants||[]).length===0) addVariantRow();
+
   document.getElementById('saveBtn').textContent = 'حفظ التعديلات';
   document.getElementById('cancelEditBtn').style.display = 'block';
   switchTab('add');
 }
 
+/* ---------- DELETE ---------- */
 async function deleteProduct(id){
-  if(!confirm('هل أنتِ متأكدة من حذف هذا المنتج؟')) return;
+  if(!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return;
   try{
     const { error } = await sb.from('products').delete().eq('id', id);
-    if(error){ showToast('حدث خطأ: ' + error.message, true); return; }
+    if(error){ showToast('حدث خطأ: '+error.message, true); return; }
     await loadProducts();
     showToast('تم الحذف');
   }catch(err){
@@ -531,6 +530,7 @@ async function deleteProduct(id){
   }
 }
 
+/* ---------- TOAST ---------- */
 function showToast(msg, isError){
   const toast = document.getElementById('toast');
   toast.textContent = msg;
@@ -539,6 +539,5 @@ function showToast(msg, isError){
   setTimeout(()=>{ toast.style.display = 'none'; }, 3500);
 }
 </script>
-
 </body>
 </html>
