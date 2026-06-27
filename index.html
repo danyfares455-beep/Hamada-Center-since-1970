@@ -304,7 +304,7 @@ function toggleLang(){
 }
 
 /* ===== CART STATE ===== */
-let cart = []; // [{product, variantIndex, qty}]
+let cart = [];
 
 function addToCart(productId, variantIndex){
   const product = products.find(p=>p.id===productId);
@@ -426,6 +426,10 @@ function validate(){
   return ok ? {addr,city,phone} : null;
 }
 
+/* ===== PHONE NUMBERS ===== */
+const MAIN_NUMBER    = '201095951764';   // 01095951764 — receives full order with delivery info
+const SECOND_NUMBER  = '201118165281';   // 01118165281 — receives bill copy (items + total only)
+
 function submitOrder(){
   const vals = validate();
   if(!vals) return;
@@ -435,7 +439,7 @@ function submitOrder(){
 
   const {addr,city,phone} = vals;
 
-  // Build order items text
+  // Build item lines (shared between both messages)
   const itemLines = cart.map(item=>{
     const p = products.find(x=>x.id===item.productId);
     const v = p.variants[item.variantIndex];
@@ -444,8 +448,8 @@ function submitOrder(){
 
   const total = cartTotal();
 
-  // Message WITH delivery info → customer sends to main number 01095951764
-  const msgFull = encodeURIComponent(
+  // ── MAIN NUMBER: full order with delivery details ──────────────────────────
+  const msgMain = encodeURIComponent(
 `🛍️ طلب جديد من موقع حمادة سنتر
 ========================
 ${itemLines}
@@ -457,21 +461,26 @@ ${itemLines}
 📞 هاتف العميل: ${phone}`
   );
 
-  // Auto-notify 01118165281 silently via hidden iframe (no delivery info)
-  const msgShort = encodeURIComponent(
-`🛍️ طلب جديد — حمادة سنتر
+  // ── SECOND NUMBER: bill copy only (no delivery info) ───────────────────────
+  const msgBill = encodeURIComponent(
+`🧾 فاتورة طلب — حمادة سنتر
+========================
 ${itemLines}
+========================
 💰 الإجمالي: ${total} ${t('currency')}
-📞 هاتف العميل: ${phone}`
+📞 هاتف العميل: ${phone}
+========================
+📌 التفاصيل الكاملة عند الرقم الرئيسي`
   );
-  const notifyFrame = document.createElement('iframe');
-  notifyFrame.style.display='none';
-  notifyFrame.src=`https://wa.me/201118165281?text=${msgShort}`;
-  document.body.appendChild(notifyFrame);
-  setTimeout(()=>document.body.removeChild(notifyFrame),5000);
 
-  // Open WhatsApp for customer to send order with delivery info
-  window.open(`https://wa.me/201095951764?text=${msgFull}`, '_blank');
+  // Step 1: open main number WhatsApp (customer sends)
+  window.open(`https://wa.me/${MAIN_NUMBER}?text=${msgMain}`, '_blank');
+
+  // Step 2: open second number WhatsApp with bill copy after short delay
+  // (delay lets the first tab open cleanly before the second pops)
+  setTimeout(()=>{
+    window.open(`https://wa.me/${SECOND_NUMBER}?text=${msgBill}`, '_blank');
+  }, 800);
 
   // Show success screen
   document.getElementById('modalContent').innerHTML = `
@@ -495,8 +504,8 @@ let products = [];
 let activeCategory = 'الكل';
 
 /* ===== CATEGORIES (bilingual) ===== */
-const CATEGORIES_AR = ['الكل','روج','فاونديشن','باليت','كونتور','هايلايتر','بودرة','مكياج عيون','مسكرا','ايلاينر','إيشادو','ريميل','كريم بي بي','سيروم','مرطب وجه','غسول','واقي شمس','مكياج','عطور','شامبو','بلسم','ماسك شعر','زيت شعر','كريم شعر','مكواة','سشوار','أجهزة','عناية بالجسم','إكسسوارات'];
-const CATEGORIES_EN = ['All','Lipstick','Foundation','Palette','Contour','Highlighter','Powder','Eye Makeup','Mascara','Eyeliner','Eyeshadow','Primer','BB Cream','Serum','Moisturizer','Face Wash','Sunscreen','Makeup','Perfumes','Shampoo','Conditioner','Hair Mask','Hair Oil','Hair Cream','Hair Iron','Hair Dryer','Devices','Body Care','Accessories'];
+const CATEGORIES_AR = ['الكل','روج','فاونديشن','باليت','كونتور','هايلايتر','بودرة','مسكرا','ايلاينر','إيشادو','سيروم','مرطب وجه','غسول','واقي شمس','عطور','شامبو','بلسم','ماسك شعر','زيت شعر','كريم شعر','مكواة','سشوار','أجهزة','عناية بالجسم','إكسسوارات'];
+const CATEGORIES_EN = ['All','Lipstick','Foundation','Palette','Contour','Highlighter','Powder','Mascara','Eyeliner','Eyeshadow','Serum','Moisturizer','Face Wash','Sunscreen','Perfumes','Shampoo','Conditioner','Hair Mask','Hair Oil','Hair Cream','Hair Iron','Hair Dryer','Devices','Body Care','Accessories'];
 
 function getCatLabel(arCat){
   if(lang==='ar') return arCat;
@@ -517,10 +526,8 @@ async function loadProducts(){
 }
 
 function renderFilters(){
-  // Show ALL predefined categories; dim ones with no products
   const activeCats = new Set(products.map(p=>p.category));
   const el = document.getElementById('filters');
-  // Always show "All" first, then predefined list (skip الكل from CATEGORIES_AR since we add it manually)
   const catList = ['الكل', ...CATEGORIES_AR.slice(1)];
   el.innerHTML = catList.map(c=>{
     const display = getCatLabel(c);
