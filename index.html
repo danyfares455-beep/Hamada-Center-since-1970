@@ -427,7 +427,7 @@ function validate(){
 }
 
 /* ===== PHONE NUMBERS ===== */
-const MAIN_NUMBER = '201095951764'; // 01095951764
+const MAIN_NUMBER = '201095951764';
 
 async function submitOrder(){
   const vals = validate();
@@ -438,7 +438,6 @@ async function submitOrder(){
 
   const {addr,city,phone} = vals;
 
-  // Build order items
   const orderItems = cart.map(item=>{
     const p = products.find(x=>x.id===item.productId);
     const v = p.variants[item.variantIndex];
@@ -447,13 +446,12 @@ async function submitOrder(){
 
   const total = cartTotal();
 
-  // Build WhatsApp message text
   const itemLines = orderItems.map(i=>{
     const imgLine = i.img ? '\n  🖼️ ' + i.img : '';
     return `• ${i.name} (${i.variant}) x${i.qty} = ${i.price} ${t('currency')}${imgLine}`;
   }).join('\n');
 
-  const msgMain = encodeURIComponent(
+  const msgText =
 `🛍️ طلب جديد من موقع حمادة سنتر
 ========================
 ${itemLines}
@@ -462,10 +460,11 @@ ${itemLines}
 ========================
 📍 العنوان: ${addr}
 🏙️ المدينة: ${city}
-📞 هاتف العميل: ${phone}`
-  );
+📞 هاتف العميل: ${phone}`;
 
-  // Save order bill to Supabase
+  const msgEncoded = encodeURIComponent(msgText);
+
+  // Save order to Supabase
   try {
     await sb.from('orders').insert([{
       items: orderItems,
@@ -478,10 +477,9 @@ ${itemLines}
     }]);
   } catch(e){ console.warn('Order save failed:', e); }
 
-  // Open WhatsApp for customer to send
-  window.open(`https://wa.me/201095951764?text=${msgMain}`, '_blank');
+  // ✅ FIXED: api.whatsapp.com works in Egypt (wa.me is blocked)
+  window.open(`https://api.whatsapp.com/send?phone=${MAIN_NUMBER}&text=${msgEncoded}`, '_blank');
 
-  // Show success screen
   document.getElementById('modalContent').innerHTML = `
     <div class="success-screen">
       <div class="icon">🎉</div>
@@ -519,7 +517,7 @@ async function loadProducts(){
     if(error){ document.getElementById('connError').style.display='block'; document.getElementById('products').innerHTML=`<div class="empty"><h3>${t('noProducts')}</h3><p>${t('noProductsSub')}</p></div>`; return; }
     document.getElementById('connError').style.display='none';
     products = (data||[]).map(p=>({id:p.id,name:p.name,category:p.category,desc:p.description||'',img:p.image||'',variants:Array.isArray(p.variants)?p.variants:[]})).filter(p=>p.variants.length>0);
-    activeCategory = getAllLabel()==='All'?'الكل':'الكل';
+    activeCategory = 'الكل';
     renderFilters(); renderProducts();
   }catch(err){ document.getElementById('connError').style.display='block'; }
 }
