@@ -479,7 +479,7 @@ ${itemLines}
   } catch(e){ console.warn('Order save failed:', e); }
 
   // Open WhatsApp for customer to send
-  const a=document.createElement('a');a.href=`https://wa.me/${MAIN_NUMBER}?text=${msgMain}`;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();document.body.removeChild(a);
+  window.open(`https://wa.me/201095951764?text=${msgMain}`, '_blank');
 
   // Show success screen
   document.getElementById('modalContent').innerHTML = `
