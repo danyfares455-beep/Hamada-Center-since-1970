@@ -443,7 +443,8 @@ function submitOrder(){
   const itemLines = cart.map(item=>{
     const p = products.find(x=>x.id===item.productId);
     const v = p.variants[item.variantIndex];
-    return `• ${p.name} (${v.label}) x${item.qty} = ${v.price*item.qty} ${t('currency')}`;
+    const imgLine = p.img ? '\n  🖼️ ' + p.img : '';
+    return `• ${p.name} (${v.label}) x${item.qty} = ${v.price*item.qty} ${t('currency')}${imgLine}`;
   }).join('\n');
 
   const total = cartTotal();
@@ -473,14 +474,10 @@ ${itemLines}
 📌 التفاصيل الكاملة عند الرقم الرئيسي`
   );
 
-  // Step 1: open main number WhatsApp (customer sends)
+  // Open both WhatsApp tabs immediately inside the same user-click event
+  // (must be synchronous — setTimeout causes popup blockers to kill the second tab)
   window.open(`https://wa.me/${MAIN_NUMBER}?text=${msgMain}`, '_blank');
-
-  // Step 2: open second number WhatsApp with bill copy after short delay
-  // (delay lets the first tab open cleanly before the second pops)
-  setTimeout(()=>{
-    window.open(`https://wa.me/${SECOND_NUMBER}?text=${msgBill}`, '_blank');
-  }, 800);
+  window.open(`https://wa.me/${SECOND_NUMBER}?text=${msgBill}`, '_blank');
 
   // Show success screen
   document.getElementById('modalContent').innerHTML = `
