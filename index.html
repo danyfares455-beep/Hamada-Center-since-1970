@@ -74,7 +74,7 @@
   .cart-overlay.open{display:block;opacity:1;}
   .cart-sidebar{position:fixed;top:0;left:0;bottom:0;width:min(400px,100vw);background:#fff;z-index:301;transform:translateX(-100%);transition:transform .3s ease;display:flex;flex-direction:column;box-shadow:4px 0 24px rgba(0,0,0,.15);}
   html[dir="rtl"] .cart-sidebar{left:auto;right:0;transform:translateX(100%);}
-  .cart-sidebar.open{transform:translateX(0);}
+  .cart-sidebar.open{transform:translateX(0) !important;}
   .cart-head{background:var(--emerald);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;}
   .cart-head h2{font-family:'Amiri',serif;font-size:1.3rem;}
   .close-cart{background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;line-height:1;}
@@ -444,7 +444,7 @@ function submitOrder(){
 
   const total = cartTotal();
 
-  // Message WITH delivery info → main number 01095951764
+  // Message WITH delivery info → customer sends to main number 01095951764
   const msgFull = encodeURIComponent(
 `🛍️ طلب جديد من موقع حمادة سنتر
 ========================
@@ -457,16 +457,21 @@ ${itemLines}
 📞 هاتف العميل: ${phone}`
   );
 
-  // Message WITHOUT delivery info → second number 01118165281
+  // Auto-notify 01118165281 silently via hidden iframe (no delivery info)
   const msgShort = encodeURIComponent(
 `🛍️ طلب جديد — حمادة سنتر
 ${itemLines}
-💰 الإجمالي: ${total} ${t('currency')}`
+💰 الإجمالي: ${total} ${t('currency')}
+📞 هاتف العميل: ${phone}`
   );
+  const notifyFrame = document.createElement('iframe');
+  notifyFrame.style.display='none';
+  notifyFrame.src=`https://wa.me/201118165281?text=${msgShort}`;
+  document.body.appendChild(notifyFrame);
+  setTimeout(()=>document.body.removeChild(notifyFrame),5000);
 
-  // Open both WhatsApp links
+  // Open WhatsApp for customer to send order with delivery info
   window.open(`https://wa.me/201095951764?text=${msgFull}`, '_blank');
-  setTimeout(()=>{ window.open(`https://wa.me/201118165281?text=${msgShort}`, '_blank'); }, 800);
 
   // Show success screen
   document.getElementById('modalContent').innerHTML = `
@@ -512,13 +517,16 @@ async function loadProducts(){
 }
 
 function renderFilters(){
-  const allLabel = getAllLabel();
-  const rawCats = ['الكل',...new Set(products.map(p=>p.category))];
+  // Show ALL predefined categories; dim ones with no products
+  const activeCats = new Set(products.map(p=>p.category));
   const el = document.getElementById('filters');
-  el.innerHTML = rawCats.map(c=>{
+  // Always show "All" first, then predefined list (skip الكل from CATEGORIES_AR since we add it manually)
+  const catList = ['الكل', ...CATEGORIES_AR.slice(1)];
+  el.innerHTML = catList.map(c=>{
     const display = getCatLabel(c);
     const isActive = c===activeCategory;
-    return `<button class="filter-btn ${isActive?'active':''}" onclick="setCategory('${c.replace(/'/g,"\\'")}')">${display}</button>`;
+    const hasProducts = c==='الكل' || activeCats.has(c);
+    return `<button class="filter-btn ${isActive?'active':''}" ${!hasProducts?'style="opacity:.35;cursor:default;"':''} onclick="${hasProducts?`setCategory('${c.replace(/'/g,"\\'")}')`:''}">${display}</button>`;
   }).join('');
 }
 
