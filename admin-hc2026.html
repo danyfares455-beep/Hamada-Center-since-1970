@@ -195,11 +195,34 @@
 
         <label>التصنيف</label>
         <select id="f-cat">
-          <option value="عطور">عطور</option>
-          <option value="مكياج">مكياج</option>
-          <option value="عناية بالبشرة">عناية بالبشرة</option>
-          <option value="عناية بالشعر">عناية بالشعر</option>
-          <option value="أخرى">أخرى</option>
+          <option value="روج">💄 روج</option>
+          <option value="فاونديشن">🧴 فاونديشن</option>
+          <option value="باليت">🎨 باليت</option>
+          <option value="كونتور">✨ كونتور</option>
+          <option value="هايلايتر">✨ هايلايتر</option>
+          <option value="بودرة">🌸 بودرة</option>
+          <option value="مكياج عيون">👁️ مكياج عيون</option>
+          <option value="مسكرا">👁️ مسكرا</option>
+          <option value="ايلاينر">✏️ ايلاينر</option>
+          <option value="إيشادو">🎨 إيشادو</option>
+          <option value="ريميل">💋 ريميل</option>
+          <option value="كريم بي بي">🧴 كريم بي بي</option>
+          <option value="مكياج">💄 مكياج (عام)</option>
+          <option value="سيروم">💧 سيروم</option>
+          <option value="مرطب وجه">🌿 مرطب وجه</option>
+          <option value="غسول">🫧 غسول</option>
+          <option value="واقي شمس">☀️ واقي شمس</option>
+          <option value="عطور">🌹 عطور</option>
+          <option value="شامبو">🧴 شامبو</option>
+          <option value="بلسم">💆 بلسم</option>
+          <option value="ماسك شعر">💆 ماسك شعر</option>
+          <option value="زيت شعر">🌿 زيت شعر</option>
+          <option value="كريم شعر">💧 كريم شعر</option>
+          <option value="مكواة">🔧 مكواة</option>
+          <option value="سشوار">💨 سشوار</option>
+          <option value="أجهزة">⚡ أجهزة</option>
+          <option value="عناية بالجسم">🧖 عناية بالجسم</option>
+          <option value="إكسسوارات">💎 إكسسوارات</option>
         </select>
 
         <label>الوصف المختصر</label>
@@ -498,7 +521,13 @@ function editProduct(id){
   if(!p) return;
   editingId = id;
   document.getElementById('f-name').value = p.name;
-  document.getElementById('f-cat').value = p.category;
+  // Map old category names to new ones if needed
+  const catMap = {'عناية بالبشرة':'سيروم','عناية بالشعر':'شامبو','أخرى':'إكسسوارات'};
+  const mappedCat = catMap[p.category] || p.category;
+  const catSelect = document.getElementById('f-cat');
+  catSelect.value = mappedCat;
+  // If still no match (unknown category), keep whatever was set
+  if(!catSelect.value) catSelect.value = 'إكسسوارات';
   document.getElementById('f-desc').value = p.description || '';
 
   // load existing images
