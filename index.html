@@ -22,6 +22,8 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
   img{max-width:100%;display:block;}
+
+  /* HEADER */
   header{background:var(--emerald);color:#fff;padding:14px 4%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.1);}
   .logo{font-family:'Amiri',serif;font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:6px;direction:ltr;}
   .logo span{color:var(--gold);}
@@ -31,15 +33,21 @@
   .cart-btn{background:var(--gold);border:none;color:var(--emerald);padding:8px 16px;border-radius:999px;cursor:pointer;font-family:inherit;font-weight:800;font-size:.9rem;display:flex;align-items:center;gap:6px;position:relative;transition:.2s;}
   .cart-btn:hover{filter:brightness(1.08);}
   .cart-count{background:var(--emerald);color:#fff;border-radius:50%;width:20px;height:20px;font-size:.72rem;display:inline-flex;align-items:center;justify-content:center;font-weight:900;}
+
+  /* HERO */
   .hero{text-align:center;padding:56px 5% 40px;background:linear-gradient(135deg,var(--rose) 0%,var(--cream) 70%);position:relative;overflow:hidden;}
   .hero::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.25);}
   .hero h1{font-family:'Amiri',serif;font-size:clamp(1.8rem,5vw,3rem);color:var(--emerald);margin-bottom:10px;font-weight:700;}
   .hero p{font-size:1.05rem;color:var(--ink);max-width:540px;margin:0 auto 20px;opacity:.8;}
   .hero-badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
   .hero-badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 16px;font-size:.82rem;font-weight:700;color:var(--emerald);}
+
+  /* FILTERS */
   .filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:24px 5% 6px;}
   .filter-btn{border:1px solid var(--emerald);background:transparent;color:var(--emerald);padding:8px 18px;border-radius:999px;font-family:inherit;font-weight:700;font-size:.85rem;cursor:pointer;transition:.2s;}
   .filter-btn.active,.filter-btn:hover{background:var(--emerald);color:#fff;}
+
+  /* GRID */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px;padding:24px 5% 60px;max-width:1280px;margin:0 auto;min-height:200px;}
   .card{background:var(--card);border-radius:18px;overflow:hidden;border:1px solid var(--line);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column;position:relative;}
   .card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(31,69,56,.12);}
@@ -57,8 +65,11 @@
   .add-cart-btn{margin-top:8px;background:var(--emerald);color:#fff;border:none;border-radius:12px;padding:11px;font-family:inherit;font-weight:800;font-size:.92rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .2s;}
   .add-cart-btn:hover{background:var(--emerald-light);}
   .add-cart-btn.added{background:#2a7a2a;}
+
   .empty{text-align:center;padding:60px 20px;color:#a8a098;grid-column:1/-1;}
   .empty h3{color:var(--emerald);margin-bottom:8px;font-family:'Amiri',serif;font-size:1.4rem;}
+
+  /* CART SIDEBAR */
   .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;opacity:0;transition:opacity .25s;}
   .cart-overlay.open{display:block;opacity:1;}
   .cart-sidebar{position:fixed;top:0;left:0;bottom:0;width:min(400px,100vw);background:#fff;z-index:301;transform:translateX(-100%);transition:transform .3s ease;display:flex;flex-direction:column;box-shadow:4px 0 24px rgba(0,0,0,.15);}
@@ -84,6 +95,8 @@
   .cart-total{display:flex;justify-content:space-between;font-weight:800;font-size:1.05rem;margin-bottom:14px;}
   .checkout-btn{width:100%;background:var(--emerald);color:#fff;border:none;padding:14px;border-radius:13px;font-family:inherit;font-weight:800;font-size:1rem;cursor:pointer;transition:.2s;}
   .checkout-btn:hover{background:var(--emerald-light);}
+
+  /* ORDER MODAL */
   .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center;padding:16px;}
   .modal-overlay.open{display:flex;}
   .modal{background:#fff;border-radius:20px;padding:28px;width:min(500px,100%);max-height:90vh;overflow-y:auto;position:relative;}
@@ -106,14 +119,24 @@
   .btn-submit{background:var(--emerald);border:none;color:#fff;}
   .btn-submit:hover{background:var(--emerald-light);}
   .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+
+  /* SUCCESS */
   .success-screen{text-align:center;padding:20px 0;}
   .success-screen .icon{font-size:3.5rem;margin-bottom:14px;}
   .success-screen h3{font-family:'Amiri',serif;color:var(--emerald);font-size:1.6rem;margin-bottom:8px;}
   .success-screen p{color:#666;font-size:.92rem;line-height:1.6;}
+
+  /* CONN ERROR */
   .conn-error{text-align:center;padding:14px;background:#fdf0e8;color:#8a4a2a;font-size:.85rem;display:none;}
+
+  /* FOOTER */
   footer{background:var(--emerald);color:#fff;text-align:center;padding:32px 5%;margin-top:20px;}
   footer p{opacity:.7;margin-top:14px;font-size:.83rem;}
-  @media(max-width:600px){.cart-sidebar{width:100vw;}.modal{padding:20px;}}
+
+  @media(max-width:600px){
+    .cart-sidebar{width:100vw;}
+    .modal{padding:20px;}
+  }
 </style>
 </head>
 <body>
@@ -143,6 +166,7 @@
 <div class="filters" id="filters"></div>
 <main class="grid" id="products"><div class="empty"><h3 id="loadingMsg">جاري تحميل المنتجات...</h3></div></main>
 
+<!-- CART SIDEBAR -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-sidebar" id="cartSidebar">
   <div class="cart-head">
@@ -156,11 +180,14 @@
   </div>
 </div>
 
+<!-- ORDER MODAL -->
 <div class="modal-overlay" id="orderModal">
   <div class="modal" id="modalContent">
     <h2 id="modalTitle">تفاصيل التوصيل</h2>
     <p class="subtitle" id="modalSub">أدخلي بياناتك لإتمام الطلب</p>
+
     <div class="order-summary" id="orderSummary"></div>
+
     <div class="field-group">
       <label id="labelAddress">📍 العنوان بالتفصيل</label>
       <input type="text" id="fieldAddress" placeholder="مثال: شارع النيل، برج المنار، شقة 5">
@@ -176,6 +203,7 @@
       <input type="tel" id="fieldPhone" placeholder="مثال: 01012345678">
       <div class="err-msg" id="errPhone">برجاء إدخال رقم هاتف صحيح</div>
     </div>
+
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeOrderModal()" id="btnCancel">إلغاء</button>
       <button class="btn-submit" onclick="submitOrder()" id="btnSubmit">📲 إرسال الطلب</button>
@@ -190,6 +218,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
+/* ===== LANGUAGE ===== */
 let lang = 'ar';
 const T = {
   ar:{
@@ -210,6 +239,7 @@ const T = {
     successTitle:'تم إرسال طلبك! 🎉',successMsg:'سيتواصل معك فريقنا قريباً على رقم هاتفك لتأكيد الطلب والتوصيل.',btnClose:'إغلاق',
     footerCopy:'Hamada Center © 2026 — جميع الحقوق محفوظة',
     connError:'تعذر تحميل المنتجات. حاولي تحديث الصفحة.',
+    orderSummaryTitle:'ملخص الطلب',totalItems:'إجمالي المنتجات',
     langBtn:'EN'
   },
   en:{
@@ -230,6 +260,7 @@ const T = {
     successTitle:'Order Sent! 🎉',successMsg:'Our team will contact you soon on your phone number to confirm the order and delivery.',btnClose:'Close',
     footerCopy:'Hamada Center © 2026 — All rights reserved',
     connError:'Could not load products. Try refreshing the page.',
+    orderSummaryTitle:'Order Summary',totalItems:'Total Items',
     langBtn:'عربي'
   }
 };
@@ -267,8 +298,12 @@ function applyLang(){
   renderFilters(); renderProducts(); renderCart();
 }
 
-function toggleLang(){ lang = lang==='ar'?'en':'ar'; applyLang(); }
+function toggleLang(){
+  lang = lang==='ar'?'en':'ar';
+  applyLang();
+}
 
+/* ===== CART STATE ===== */
 let cart = [];
 
 function addToCart(productId, variantIndex){
@@ -276,7 +311,8 @@ function addToCart(productId, variantIndex){
   const existing = cart.find(i=>i.productId===productId && i.variantIndex===variantIndex);
   if(existing){ existing.qty++; }
   else{ cart.push({productId, variantIndex, qty:1}); }
-  updateCartCount(); renderCart();
+  updateCartCount();
+  renderCart();
   const btn = document.getElementById(`add-${productId}`);
   if(btn){ btn.textContent = t('added'); btn.classList.add('added'); setTimeout(()=>{btn.textContent=t('addToCart');btn.classList.remove('added');},1400); }
 }
@@ -345,6 +381,7 @@ function closeCart(){
   document.getElementById('cartSidebar').classList.remove('open');
 }
 
+/* ===== ORDER MODAL ===== */
 function openOrderModal(){
   if(cart.length===0) return;
   closeCart();
@@ -389,16 +426,8 @@ function validate(){
   return ok ? {addr,city,phone} : null;
 }
 
-const MAIN_NUMBER = '201095951764';
-
-function openWhatsApp(phone, msgEncoded) {
-  // Try WhatsApp app directly first (works in Egypt, no browser redirect)
-  window.location.href = `whatsapp://send?phone=${phone}&text=${msgEncoded}`;
-  // Fallback after 1.5s: if app didn't open, try api.whatsapp.com
-  setTimeout(() => {
-    window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${msgEncoded}`, '_blank');
-  }, 1500);
-}
+/* ===== PHONE NUMBERS ===== */
+const MAIN_NUMBER = '201095951764'; // 01095951764
 
 async function submitOrder(){
   const vals = validate();
@@ -409,6 +438,7 @@ async function submitOrder(){
 
   const {addr,city,phone} = vals;
 
+  // Build order items
   const orderItems = cart.map(item=>{
     const p = products.find(x=>x.id===item.productId);
     const v = p.variants[item.variantIndex];
@@ -417,12 +447,13 @@ async function submitOrder(){
 
   const total = cartTotal();
 
+  // Build WhatsApp message text
   const itemLines = orderItems.map(i=>{
     const imgLine = i.img ? '\n  🖼️ ' + i.img : '';
     return `• ${i.name} (${i.variant}) x${i.qty} = ${i.price} ${t('currency')}${imgLine}`;
   }).join('\n');
 
-  const msgEncoded = encodeURIComponent(
+  const msgMain = encodeURIComponent(
 `🛍️ طلب جديد من موقع حمادة سنتر
 ========================
 ${itemLines}
@@ -434,7 +465,7 @@ ${itemLines}
 📞 هاتف العميل: ${phone}`
   );
 
-  // Save to Supabase
+  // Save order bill to Supabase
   try {
     await sb.from('orders').insert([{
       items: orderItems,
@@ -447,8 +478,8 @@ ${itemLines}
     }]);
   } catch(e){ console.warn('Order save failed:', e); }
 
-  // Open WhatsApp app directly
-  openWhatsApp(MAIN_NUMBER, msgEncoded);
+  // Open WhatsApp for customer to send
+  window.open(`https://wa.me/201095951764?text=${msgMain}`, '_blank');
 
   // Show success screen
   document.getElementById('modalContent').innerHTML = `
@@ -462,6 +493,7 @@ ${itemLines}
     </div>`;
 }
 
+/* ===== SUPABASE & PRODUCTS ===== */
 if(typeof SUPABASE_URL==='undefined'||typeof SUPABASE_ANON_KEY==='undefined'){
   document.getElementById('products').innerHTML='<div class="empty"><h3>خطأ في الإعداد</h3></div>';
   throw new Error('Missing config.js');
@@ -470,6 +502,7 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let products = [];
 let activeCategory = 'الكل';
 
+/* ===== CATEGORIES (bilingual) ===== */
 const CATEGORIES_AR = ['الكل','روج','فاونديشن','باليت','كونتور','هايلايتر','بودرة','مسكرا','ايلاينر','إيشادو','سيروم','مرطب وجه','غسول','واقي شمس','عطور','شامبو','بلسم','ماسك شعر','زيت شعر','كريم شعر','مكواة','سشوار','أجهزة','عناية بالجسم','إكسسوارات'];
 const CATEGORIES_EN = ['All','Lipstick','Foundation','Palette','Contour','Highlighter','Powder','Mascara','Eyeliner','Eyeshadow','Serum','Moisturizer','Face Wash','Sunscreen','Perfumes','Shampoo','Conditioner','Hair Mask','Hair Oil','Hair Cream','Hair Iron','Hair Dryer','Devices','Body Care','Accessories'];
 
@@ -486,7 +519,7 @@ async function loadProducts(){
     if(error){ document.getElementById('connError').style.display='block'; document.getElementById('products').innerHTML=`<div class="empty"><h3>${t('noProducts')}</h3><p>${t('noProductsSub')}</p></div>`; return; }
     document.getElementById('connError').style.display='none';
     products = (data||[]).map(p=>({id:p.id,name:p.name,category:p.category,desc:p.description||'',img:p.image||'',variants:Array.isArray(p.variants)?p.variants:[]})).filter(p=>p.variants.length>0);
-    activeCategory = 'الكل';
+    activeCategory = getAllLabel()==='All'?'الكل':'الكل';
     renderFilters(); renderProducts();
   }catch(err){ document.getElementById('connError').style.display='block'; }
 }
