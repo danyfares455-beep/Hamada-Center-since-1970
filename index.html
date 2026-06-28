@@ -505,8 +505,7 @@ function submitOrder(){
   var total = cartTotal();
 
   var itemLines = orderItems.map(function(i){
-    var imgLine = i.img ? '\n  🖼️ ' + i.img : '';
-    return '• ' + i.name + ' (' + i.variant + ') x' + i.qty + ' = ' + i.price + ' ' + t('currency') + imgLine;
+    return '• ' + i.name + ' (' + i.variant + ') x' + i.qty + ' = ' + i.price + ' ' + t('currency');
   }).join('\n');
 
   var msgText =
