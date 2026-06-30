@@ -17,6 +17,8 @@
     --line:#EAE0D8;
     --danger:#a13c3c;
     --danger-bg:#f6dada;
+    --blue:#2563eb;
+    --blue-bg:#dbeafe;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
@@ -35,7 +37,6 @@
   .header-actions{display:flex;align-items:center;gap:10px;}
   .logout-btn{background:rgba(255,255,255,.15);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-family:inherit;font-weight:700;cursor:pointer;font-size:.85rem;}
 
-  /* ORDERS ICON BUTTON */
   .orders-icon-btn{
     position:relative;background:var(--gold);color:var(--emerald);border:none;
     padding:8px 16px;border-radius:8px;font-family:inherit;font-weight:800;
@@ -48,7 +49,6 @@
   }
   .orders-badge.show{display:flex;}
 
-  /* ORDERS PANEL */
   .orders-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:none;}
   .orders-overlay.open{display:block;}
   .orders-panel{
@@ -146,6 +146,20 @@
   .live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);padding:6px 12px;border-radius:999px;font-size:.78rem;font-weight:700;}
   .live-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+  /* STATUS PILLS */
+  .status-pills{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;}
+  .status-pill{
+    flex:1;min-width:90px;padding:11px 10px;border-radius:10px;text-align:center;
+    border:1.5px solid var(--line);background:var(--cream);cursor:pointer;
+    font-family:inherit;font-weight:800;font-size:.82rem;color:var(--ink);transition:.2s;
+  }
+  .status-pill.active-normal{background:var(--emerald);color:#fff;border-color:var(--emerald);}
+  .status-pill.active-new{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .status-pill.active-soldout{background:var(--danger);color:#fff;border-color:var(--danger);}
+  .badge-tag{display:inline-block;font-size:.65rem;font-weight:800;padding:2px 7px;border-radius:999px;margin-right:4px;}
+  .badge-tag.tag-new{background:var(--blue-bg);color:var(--blue);}
+  .badge-tag.tag-soldout{background:var(--danger-bg);color:var(--danger);}
 </style>
 </head>
 <body>
@@ -169,7 +183,6 @@
     <div class="header-actions">
       <span class="live-badge"><span class="live-dot"></span> متصل مباشر</span>
 
-      <!-- ORDERS ICON BUTTON -->
       <button class="orders-icon-btn" onclick="openOrders()">
         🧾 الفواتير
         <span class="orders-badge" id="ordersBadge">0</span>
@@ -221,8 +234,16 @@
         <label>الوصف المختصر</label>
         <textarea id="f-desc" placeholder="وصف قصير يظهر تحت اسم المنتج"></textarea>
 
+        <label>حالة المنتج</label>
+        <div class="status-pills" id="statusPills">
+          <button type="button" class="status-pill" id="pill-normal" onclick="setStatus('normal')">عادي</button>
+          <button type="button" class="status-pill" id="pill-new" onclick="setStatus('new')">🆕 جديد</button>
+          <button type="button" class="status-pill" id="pill-soldout" onclick="setStatus('soldout')">⛔ نفذ من المخزون</button>
+        </div>
+        <div class="hint">حدد حالة المنتج — تظهر كشارة على صورة المنتج بالموقع</div>
+
         <label>صور المنتج</label>
-        <div class="hint" style="margin-bottom:8px;">يمكنك إضافة أكثر من صورة — الصورة الأولى هي الرئيسية</div>
+        <div class="hint" style="margin-bottom:8px;">يمكنك إضافة أكثر من صورة — الصورة الأولى هي الرئيسية، وكل الصور تظهر كسلايدر للعميل</div>
         <input type="file" id="f-img-upload" accept="image/*" multiple style="display:none" onchange="handleImagesUpload(event)">
         <div class="images-grid" id="images-grid">
           <button type="button" class="add-more-img-btn" onclick="document.getElementById('f-img-upload').click()">
@@ -318,11 +339,13 @@ let ordersFilter = 'all';
 let editingId = null;
 let variantCount = 0;
 let uploadedImages = [];
+let currentStatus = 'normal';
 
 async function init(){
   await loadProducts();
   await loadOrders();
   addVariantRow();
+  setStatus('normal');
 }
 
 /* ========== ORDERS ========== */
@@ -448,6 +471,14 @@ function switchTab(tab){
   if(tab==='manage') renderProductList();
 }
 
+/* ---------- STATUS PILLS ---------- */
+function setStatus(status){
+  currentStatus = status;
+  document.getElementById('pill-normal').classList.toggle('active-normal', status==='normal');
+  document.getElementById('pill-new').classList.toggle('active-new', status==='new');
+  document.getElementById('pill-soldout').classList.toggle('active-soldout', status==='soldout');
+}
+
 /* ---------- MULTI-IMAGE ---------- */
 function handleImagesUpload(event){
   const files = Array.from(event.target.files);
@@ -513,6 +544,7 @@ function clearForm(){
   renderImagesGrid();
   document.getElementById('variants-container').innerHTML = '';
   variantCount = 0; addVariantRow();
+  setStatus('normal');
   document.getElementById('saveBtn').textContent = 'حفظ المنتج';
   document.getElementById('cancelEditBtn').style.display = 'none';
 }
@@ -535,7 +567,11 @@ async function saveProduct(){
   saveBtn.disabled = true; saveBtn.textContent = 'جاري الحفظ...';
   const imagesArray = uploadedImages.length > 0 ? uploadedImages : [];
   const mainImage = imagesArray[0] || null;
-  const payload = { name, category, description: desc, image: mainImage, images: imagesArray, variants };
+  const payload = {
+    name, category, description: desc, image: mainImage, images: imagesArray, variants,
+    is_new: currentStatus === 'new',
+    sold_out: currentStatus === 'soldout'
+  };
   let error;
   try{
     if(editingId){ ({ error } = await sb.from('products').update(payload).eq('id', editingId)); }
@@ -556,7 +592,9 @@ function renderProductList(){
     const variantsText = (p.variants||[]).map(v=>v.price+'ج').join(' / ');
     const imgCount = (p.images||[]).length;
     const imgBadge = imgCount > 1 ? `<span style="font-size:.72rem;color:#a8a098;"> · ${imgCount} صور</span>` : '';
-    return `<div class="product-item"><img src="${p.image||''}" alt="" onerror="this.style.visibility='hidden'"><div class="info"><b>${escapeHtml(p.name)}</b>${escapeHtml(p.category)} — ${variantsText}${imgBadge}</div><div class="actions"><button class="small-btn" onclick="editProduct('${p.id}')">تعديل</button><button class="danger-btn" onclick="deleteProduct('${p.id}')">حذف</button></div></div>`;
+    const tags = (p.is_new ? '<span class="badge-tag tag-new">🆕 جديد</span>' : '') +
+                 (p.sold_out ? '<span class="badge-tag tag-soldout">⛔ نفذ</span>' : '');
+    return `<div class="product-item"><img src="${p.image||''}" alt="" onerror="this.style.visibility='hidden'"><div class="info"><b>${escapeHtml(p.name)}</b>${tags}${escapeHtml(p.category)} — ${variantsText}${imgBadge}</div><div class="actions"><button class="small-btn" onclick="editProduct('${p.id}')">تعديل</button><button class="danger-btn" onclick="deleteProduct('${p.id}')">حذف</button></div></div>`;
   }).join('');
 }
 
@@ -579,6 +617,7 @@ function editProduct(id){
   variantCount = 0;
   (p.variants||[]).forEach(v=>addVariantRow(v.label, v.price, v.oldPrice||''));
   if((p.variants||[]).length===0) addVariantRow();
+  setStatus(p.sold_out ? 'soldout' : (p.is_new ? 'new' : 'normal'));
   document.getElementById('saveBtn').textContent = 'حفظ التعديلات';
   document.getElementById('cancelEditBtn').style.display = 'block';
   switchTab('add');
